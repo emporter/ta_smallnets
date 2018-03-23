@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<scenario>
+
+	<commodities>
+		<commodity id="1" name="zero_to_five" pathfull="true" subnetworks="1,2"/>	
+		<commodity id="2" name="one_to_five" pathfull="true" subnetworks="3"/>		
+	</commodities>
+
+	<model>
+		<!-- <ctm max_cell_length="50">0,1,2,3,4,5</ctm> -->
+		<point_queue>0,1,2,3,4,5</point_queue>
+	</model>
+
+	<network>
+
+		<nodes>
+			<node id="0" x="0"    y="0" />
+			<node id="1" x="200"  y="-200" />
+			<node id="2" x="200"  y="0" />
+			<node id="3" x="400" y="0" />
+			<node id="4" x="600" y="0" />
+			<node id="5" x="800" y="0" />
+		</nodes>
+
+		<links>
+			<link id="0" length="200" start_node_id="0" end_node_id="2" roadparam="2" full_lanes="1"/>
+			<link id="1" length="200" start_node_id="1" end_node_id="2" roadparam="2" full_lanes="1"/>
+			<link id="2" length="400" start_node_id="2" end_node_id="3" roadparam="2" full_lanes="1">
+				<points>
+					<point x="200" y="0"/>
+					<point x="200" y="100"/>
+					<point x="400" y="100"/>
+					<point x="400" y="0"/>
+				</points>
+			</link>
+			<link id="3" length="200" start_node_id="2" end_node_id="3" roadparam="2" full_lanes="1"/>
+			<link id="4" length="200" start_node_id="3" end_node_id="4" roadparam="1" full_lanes="1"/>
+			<link id="5" length="200" start_node_id="4" end_node_id="5" roadparam="1" full_lanes="1"/>
+		</links>
+
+		<roadconnections>
+			<roadconnection id="0" in_link="0" in_link_lanes="1#1" out_link="2" out_link_lanes="1#1" />
+			<roadconnection id="1" in_link="0" in_link_lanes="1#1" out_link="3" out_link_lanes="1#1" />
+			<roadconnection id="2" in_link="1" in_link_lanes="1#1" out_link="3" out_link_lanes="1#1" />
+			<roadconnection id="3" in_link="3" in_link_lanes="1#1" out_link="4" out_link_lanes="1#1" />
+			<roadconnection id="4" in_link="2" in_link_lanes="1#1" out_link="4" out_link_lanes="1#1" />
+			<roadconnection id="5" in_link="4" in_link_lanes="1#1" out_link="5" out_link_lanes="1#1" />
+		</roadconnections>
+
+		<roadparams>
+			<roadparam id="1" capacity="100" speed="50" jam_density="80"/>
+			<roadparam id="2" capacity="1000" speed="50" jam_density="160"/>
+		</roadparams>
+
+	</network>
+
+	<subnetworks>
+		<subnetwork id="1">0,3,4,5</subnetwork>
+		<subnetwork id="2">0,2,4,5</subnetwork>
+		<subnetwork id="3">1,3,4,5</subnetwork>
+	</subnetworks>
+
+	<demands>
+		<demand subnetwork="1" commodity_id="1" start_time="0" dt="60">100</demand>
+		<demand subnetwork="2" commodity_id="1" start_time="0" dt="60">0</demand>
+		<demand subnetwork="3" commodity_id="2" start_time="0" dt="60">20</demand>
+	</demands>
+
+</scenario>
